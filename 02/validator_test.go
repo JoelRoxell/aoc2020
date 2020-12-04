@@ -1,9 +1,9 @@
 package a02
 
 import (
-	"bufio"
-	"os"
 	"testing"
+
+	"github.com/joelroxell/aoc2020/utils"
 )
 
 func TestReadPolicy(t *testing.T) {
@@ -50,19 +50,31 @@ func TestValidatePasswordStep(t *testing.T) {
 	}
 }
 
-func TestMain(t *testing.T) {
-	actual := 705
-	f, err := os.Open("./input-2.dat")
-
-	if (err != nil) { panic(err) }
-
-	s := bufio.NewScanner(f)
-	s.Split(bufio.ScanLines)
+func Test1(t *testing.T) {
+	actual := 628
+	records := utils.ReadDat("./input.dat")
 
 	validPwdCount := 0
 
-	for s.Scan() {
-		if (ValidatePasswordStep(s.Text())) {
+	for _, record := range(records) {
+		if (ValidatePassword(record)) {
+			validPwdCount++
+		}
+	}
+
+	if (validPwdCount != actual) {
+		t.Errorf("Valid passwords should be %d", actual)
+	}
+}
+
+func Test2(t *testing.T) {
+	actual := 705
+	records := utils.ReadDat("./input.dat")
+
+	validPwdCount := 0
+
+	for _, record := range(records) {
+		if (ValidatePasswordStep(record)) {
 			validPwdCount++
 		}
 	}

@@ -1,33 +1,14 @@
 package o3
 
 import (
-	"bufio"
-	"os"
 	"testing"
+
+	"github.com/joelroxell/aoc2020/utils"
 )
 
 
-func readFieldFromDat(file string) []string {
-    f, err := os.Open(file)
-
-    if err != nil {
-        panic(err)
-    }
-
-    s := bufio.NewScanner(f)
-    s.Split(bufio.ScanLines)
-
-    field := []string{}
-
-    for s.Scan() {
-        field = append(field, s.Text())
-    }
-
-    return field
-}
-
 func TestTreeTraverseCounterTestData(t *testing.T) {
-    trees := TraverseTreesCounter(readFieldFromDat("./test-field.dat"), 3, 1)
+    trees := TraverseTreesCounter(utils.ReadDat("./test-field.dat"), 3, 1)
 
     if (trees != 7) {
         t.Error("Didn't find the correct amount of trees")
@@ -35,7 +16,7 @@ func TestTreeTraverseCounterTestData(t *testing.T) {
 }
 
 func TestTreeTraverseCounterInputData(t *testing.T) {
-    trees := TraverseTreesCounter(readFieldFromDat("./input.dat"), 3, 1)
+    trees := TraverseTreesCounter(utils.ReadDat("./input.dat"), 3, 1)
 
     if (trees != 169) {
         t.Error("Didn't find the correct amount of trees")
@@ -43,7 +24,7 @@ func TestTreeTraverseCounterInputData(t *testing.T) {
 }
 
 func TestTreeTraverseCounter2InputData(t *testing.T) {
-    field := readFieldFromDat("./input.dat")
+    field := utils.ReadDat("./input.dat")
 
     runs := [5][2]int {
         {1,1},
