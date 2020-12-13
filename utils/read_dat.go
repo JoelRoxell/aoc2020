@@ -29,13 +29,17 @@ func ReadDat(file string) []string {
 	return field
 }
 
+func CreateScanner(file string) (*bufio.Scanner, *os.File){
+	var scanner *bufio.Scanner
 
-func Sum(arr []int) int {
-	total := 0
+	f, err := os.Open(file)
 
-	for _, v := range arr {
-		total += v
+	if err != nil {
+			panic(err)
 	}
 
-	return total
+	scanner = bufio.NewScanner(f)
+	scanner.Split(bufio.ScanLines)
+
+	return scanner, f
 }
