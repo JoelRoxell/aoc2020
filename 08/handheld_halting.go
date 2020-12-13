@@ -16,7 +16,7 @@ type Command struct {
 	param int
 }
 
-func Boot(sequence []Command) int {
+func Boot(sequence []Command, print bool) int {
 	acc := 0
 	duplicateGuard := make(map[string]bool)
 	var previousInstruction Command
@@ -25,7 +25,10 @@ func Boot(sequence []Command) int {
 		next := sequence[i]
 
 		if duplicateGuard[next.id] {
-			fmt.Printf("cmd %s with id %s is causing a loop using param %d", previousInstruction.action, previousInstruction.id, previousInstruction.param)
+			if (print) {
+				fmt.Printf("cmd %s with id %s is causing a loop using param %d", previousInstruction.action, previousInstruction.id, previousInstruction.param)
+			}
+
 			break		
 		}
 
@@ -44,10 +47,10 @@ func Boot(sequence []Command) int {
 	return acc
 }
 
-var idCounter int = 0
+var IdCounter int = 0
 
 func ParseStringToCmd(s string) Command {
-	idCounter++
+	IdCounter++
 	parts := strings.Split(s, " ")
 	action := parts[0]
 	param := parts[1]
@@ -66,7 +69,7 @@ func ParseStringToCmd(s string) Command {
 		number = -number
 	}
 
- return Command{id: strconv.Itoa(idCounter), action: action, param: number }	
+ return Command{id: strconv.Itoa(IdCounter), action: action, param: number }	
 }
 
 func ReadInstructions(file string) []Command {

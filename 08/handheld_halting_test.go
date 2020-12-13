@@ -7,7 +7,7 @@ import (
 
 func TestDemo(t *testing.T) {
 	instructions := ReadInstructions("./demo.dat")
-	count := Boot(instructions)
+	count := Boot(instructions, false)
 
 	if count != 5 {
 		t.Errorf("Boot sequence result is invalid %d", count)
@@ -16,7 +16,7 @@ func TestDemo(t *testing.T) {
 
 func TestParseCommand(t *testing.T) {
 	cmdText := "acc -1"
-
+	IdCounter = 0
 	cmd := ParseStringToCmd(cmdText)
 
 	if strings.Compare(cmd.action, "acc") != 0 {
@@ -24,7 +24,7 @@ func TestParseCommand(t *testing.T) {
 	}
 
 	if strings.Compare(cmd.id, "1") != 0 {
-		t.Error("failed to parse comand action")
+		t.Error("failed to parse comand id")
 	}
 
 	if cmd.param != -1 {
@@ -34,7 +34,7 @@ func TestParseCommand(t *testing.T) {
 
 func Test1(t *testing.T) {
 	instructions := ReadInstructions("./input.dat")
-	count := Boot(instructions)
+	count := Boot(instructions, false)
 
 	if count != 1801 {
 		t.Errorf("Boot sequence result is invalid %d", count)
@@ -43,7 +43,7 @@ func Test1(t *testing.T) {
 
 func Test2(t *testing.T) {
 	instructions := ReadInstructions("./input2.dat")
-	count := Boot(instructions)
+	count := Boot(instructions, false)
 
 	if count != 2060 {
 		t.Errorf("Boot sequence result is invalid %d", count)
